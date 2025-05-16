@@ -3,6 +3,15 @@ import { Lexer } from '../parser/lexer';
 import { Parser } from '../parser/parser';
 import { Evaluator } from '../parser/evaluator';
 
+const suggestions = [
+  'P ∧ Q',
+  '¬P',
+  'P ∨ Q',
+  'P → Q',
+  '(P ∨ Q) → R',
+  '¬(P ∧ (¬Q ∨ R)) → (S ∨ ¬T)'
+];
+
 export function LogicExplorer() {
   const [formula, setFormula] = useState('');
   const [error, setError] = useState<string | null>(null);
@@ -41,7 +50,6 @@ export function LogicExplorer() {
   return (
     <div className="p-4 max-w-4xl mx-auto">
       <h1 className="text-2xl font-bold mb-4">Logic Explorer</h1>
-      
       <div className="mb-4">
         <label className="block text-sm font-medium mb-2">
           Enter a logical formula:
@@ -64,14 +72,24 @@ export function LogicExplorer() {
         <p className="text-sm text-gray-500 mt-1">
           Use: ¬ (negation), ∧ (and), ∨ (or), → (implies)
         </p>
+        <div className="mt-2 flex flex-wrap gap-2">
+          {suggestions.map((s, i) => (
+            <button
+              key={i}
+              type="button"
+              className="px-2 py-1 bg-gray-200 rounded hover:bg-blue-200 text-sm"
+              onClick={() => setFormula(s)}
+            >
+              {s}
+            </button>
+          ))}
+        </div>
       </div>
-
       {error && (
         <div className="mb-4 p-3 bg-red-100 text-red-700 rounded">
           {error}
         </div>
       )}
-
       {result && (
         <div className="w-full min-h-[400px] grid grid-cols-[400px_1fr] gap-8 items-start">
           <div className="w-[400px]">
@@ -133,4 +151,4 @@ function generateCombinations(variables: string[]): Map<string, boolean>[] {
   }
 
   return combinations;
-} 
+}
