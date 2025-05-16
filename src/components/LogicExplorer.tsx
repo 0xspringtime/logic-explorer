@@ -5,7 +5,6 @@ import { Evaluator } from '../parser/evaluator';
 
 export function LogicExplorer() {
   const [formula, setFormula] = useState('');
-  const [variables, setVariables] = useState<Map<string, boolean>>(new Map());
   const [error, setError] = useState<string | null>(null);
   const [result, setResult] = useState<{ parsed: any; evaluations: { [key: string]: boolean } } | null>(null);
 
@@ -23,7 +22,7 @@ export function LogicExplorer() {
       
       const evaluations: { [key: string]: boolean } = {};
       
-      combinations.forEach((vars, index) => {
+      combinations.forEach((vars) => {
         const evaluator = new Evaluator(vars);
         const value = evaluator.evaluate(parsed);
         const key = Array.from(vars.entries())

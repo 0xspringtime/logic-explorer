@@ -1,6 +1,6 @@
 import { Lexer } from './lexer';
 import { Parser } from './parser';
-import { LogicalExpression } from './types';
+import type { LogicalExpression } from './types';
 
 export function parseFormula(input: string): LogicalExpression {
   const lexer = new Lexer(input);
@@ -9,4 +9,4 @@ export function parseFormula(input: string): LogicalExpression {
   return parser.parse();
 }
 
-export * from './types'; 
+export * from './types';
